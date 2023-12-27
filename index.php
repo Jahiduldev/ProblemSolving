@@ -2,24 +2,39 @@
 class Solution
 {
     /**
-     * @param Integer[] $nums
-     * @param Integer $target
-     * @return Integer[]
+     * @param Integer $n
+     * @return Boolean
      * Date:27-12-2023
-     * Jahidul Islam
+     * Jahidul islam
      */
-    function twoSum($nums, $target)
+    function isHappy($n)
     {
-        for($i = 0; $i<count($nums); $i++)
+        $getSumOfSquares = function ($num) {
+            return array_sum(array_map(function ($digit) {
+                return $digit * $digit;
+            }, str_split($num)));
+        };
+
+        $slow = $n;
+        $fast = $n;
+
+        for ($i = 0; $i < $n; $i++)  // Set a maximum iteration count (you can adjust this)
         {
-           for($j = $i+1; $j<count($nums); $j++)
-           {
-               if ($nums[$i] + $nums[$j] == $target)
-               {
-                   return [$i, $j];
-               }
-           }
+            $slow = $getSumOfSquares($slow);
+            $fast = $getSumOfSquares($getSumOfSquares($fast));
+
+            if ($slow === 1 || $fast === 1)
+            {
+                return true;
+            }
+
+            if ($slow === $fast)
+            {
+                return false;
+            }
         }
-        return [];
+        return false; // Non-happy after 20 iterations
     }
 }
+$obj = new Solution();
+var_dump($obj->isHappy(7));
