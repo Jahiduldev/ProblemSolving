@@ -1,22 +1,16 @@
 <?php
-$x = 20;
-$y = 25;
-
-function findLcmAndLcd($x, $y)
+function isPalindrome($input_string)
 {
-    if ($x > $y) {
-        $temp = $x;
-        $x = $y;
-        $y = $temp;
-    }
-
-    for($i = 1; $i < ($x+1); $i++) {
-        if ($x%$i == 0 && $y%$i == 0)
-            $gcd = $i;
-    }
-
-    $lcm = ($x*$y)/$gcd;
-    return "LCM of $x and $y is: $lcm and lcd is: $gcd";
+    $input_string = strtolower($input_string);
+    $reversed_string = strrev($input_string);
+    return $input_string === $reversed_string;
 }
-echo  findLcmAndLcd(20,25)
-?>
+
+$input_string = "racecar";
+if (isPalindrome($input_string))
+{
+    echo $input_string . " is a palindrome!";
+} else
+{
+    echo $input_string . " is not a palindrome.";
+}
